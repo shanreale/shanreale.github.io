@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/16815/16815634.png">
-    <title>Quiz Game</title>
+    <link rel="icon" href="https://cdn-icons-gif.flaticon.com/15766/15766751.gif">
+    <title>Islamic Quiz Game</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -46,7 +46,7 @@
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: #4f734c; /* Light gray background for buttons */
+            background-color: #4d9647; /* Light gray background for buttons */
             font-size: 16px;
             text-align: left;
             cursor: pointer;
@@ -54,7 +54,7 @@
         }
         
         .answer-btn:hover:not(:disabled) {
-            background-color: #3c4f3a; /* Slightly darker gray on hover */
+            background-color: #396e35; /* Slightly darker gray on hover */
         }
         
         .answer-btn.correct {
@@ -80,7 +80,7 @@
         }
         
         .next-btn:hover {
-            background-color: #385c34; /* Darker blue on hover */
+            background-color: #1fba11; /* Darker blue on hover */
         }
         
         .score-section {
@@ -99,7 +99,7 @@
         }
         
         .restart-btn {
-            background-color: #2196F3; /* Same blue for restart button */
+            background-color: #1fba11; /* Same blue for restart button */
             color: white;
             border: none;
             padding: 12px 24px;
@@ -110,7 +110,7 @@
         }
         
         .restart-btn:hover {
-            background-color: #0b7dda; /* Darker blue on hover */
+            background-color: #1ba10e; /* Darker blue on hover */
         }
     </style>
 </head>
@@ -125,48 +125,48 @@
         // Quiz questions and answers
         const questions = [
             {
-                question: 'What is the capital of France?',
+                question: 'What is the meal after breaking the fast called?',
                 answers: [
-                    { text: 'New York', correct: false },
-                    { text: 'London', correct: false },
-                    { text: 'Paris', correct: true },
-                    { text: 'Dublin', correct: false }
+                    { text: 'Iftar', correct: true },
+                    { text: 'Suhoor', correct: false },
+                    { text: 'Eid', correct: false },
+                    { text: 'Prayer', correct: false }
                 ]
             },
             {
-                question: 'Who painted the Mona Lisa?',
+                question: 'Is there any Prophet after our Holy Prophet Sallallahu Alaihi Wa Sallam?',
                 answers: [
-                    { text: 'Pablo Picasso', correct: false },
-                    { text: 'Leonardo da Vinci', correct: true },
-                    { text: 'Vincent van Gogh', correct: false },
+                    { text: 'Yes', correct: false },
+                    { text: 'No', correct: true },
+                    { text: 'I dont know', correct: false },
                     { text: 'Michelangelo', correct: false }
                 ]
             },
             {
-                question: 'Which planet is known as the Red Planet?',
+                question: 'How many months are in Islamic Calendar?',
                 answers: [
-                    { text: 'Jupiter', correct: false },
-                    { text: 'Saturn', correct: false },
-                    { text: 'Mars', correct: true },
-                    { text: 'Venus', correct: false }
+                    { text: '13', correct: false },
+                    { text: '15', correct: false },
+                    { text: '11', correct: false },
+                    { text: '12', correct: true }
                 ]
             },
             {
-                question: 'What is the largest ocean on Earth?',
+                question: 'Which prophet was thrown into a well?',
                 answers: [
-                    { text: 'Atlantic Ocean', correct: false },
-                    { text: 'Indian Ocean', correct: false },
-                    { text: 'Arctic Ocean', correct: false },
-                    { text: 'Pacific Ocean', correct: true }
+                    { text: 'Musa', correct: false },
+                    { text: 'Hamza', correct: false },
+                    { text: 'Yunus', correct: false },
+                    { text: 'Yusuf', correct: true }
                 ]
             },
             {
-                question: 'Which element has the chemical symbol "O"?',
+                question: 'Can Jinns be good or bad?',
                 answers: [
-                    { text: 'Gold', correct: false },
-                    { text: 'Oxygen', correct: true },
-                    { text: 'Osmium', correct: false },
-                    { text: 'Oregano', correct: false }
+                    { text: 'Bad', correct: false },
+                    { text: 'Both', correct: true },
+                    { text: 'Good', correct: false },
+                    { text: 'None', correct: false }
                 ]
             }
         ];
