@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shan Popal Real Estate</title>
   <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/022/750/436/small/3d-home-icon-free-png.png" type="image/png" />
-  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.25.6/babel.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.tailwindcss.com"></script>
   <style>
+    body {
+      background-color: #f3f4f6; /* Light gray background to avoid white screen */
+      min-height: 100vh;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -71,10 +75,20 @@
       background-color: #1e40af;
       transform: scale(1.1);
     }
+    #error-message {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #dc2626;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 <body>
   <div id="root"></div>
+  <div id="error-message">
+    <p>Oops! Something went wrong while loading the page. Please check your internet connection or try refreshing the page.</p>
+  </div>
   <script type="text/babel">
     function Navbar() {
       const [isOpen, setIsOpen] = React.useState(false);
@@ -447,7 +461,7 @@
                 <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
                 <p className="text-lg mb-4">Phone: <a href="tel:123-456-7890" className="hover:text-blue-400 transition" aria-label="Call Shan">123-456-7890</a></p>
                 <p className="text-lg mb-4">Email: <a href="mailto:asapcity1@gmail.com" className="hover:text-blue-400 transition" aria-label="Email Shan">asapcity1@gmail.com</a></p>
-                <p className="text-lg mb-4">Address: 123 Real Estate Ave, City, State</p>
+                <p className="text-lg mb-4">Address: 123 Real Estate Ave, City, State (⚠️ address and map is not real location ⚠️)</p>
                 <div className="mt-6">
                   <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0191382894836!2d-122.4194154846813!3d37.77492977975975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c4d6c4b1b%3A0x4e6b6e7b0c0b7b1d!2s123%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103%2C%20USA!5e0!3m2!1sen!2sus!4v1667841234567" 
@@ -531,7 +545,7 @@
                 <p className="text-gray-400 mb-2">
                   Email: <a href="mailto:asapcity1@gmail.com" className="hover:text-blue-400 transition" aria-label="Email Shan">asapcity1@gmail.com</a>
                 </p>
-                <p className="text-gray-400">Address: 123 Real Estate Ave, City, State (⚠️ address and map is not real location ⚠️)/p>
+                <p className="text-gray-400">Address: 123 Real Estate Ave, City, State (⚠️ address and map is not real location ⚠️)</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
@@ -591,25 +605,33 @@
 
     function App() {
       return (
-        <div>
-          <Navbar />
-          <Hero />
-          <Services />
-          <Listings />
-          <MarketTrends />
-          <MortgageCalculator />
-          <Testimonials />
-          <FAQ />
-          <About />
-          <Contact />
-          <Footer />
-          <BackToTop />
-        </div>
+        <React.StrictMode>
+          <div>
+            <Navbar />
+            <Hero />
+            <Services />
+            <Listings />
+            <MarketTrends />
+            <MortgageCalculator />
+            <Testimonials />
+            <FAQ />
+            <About />
+            <Contact />
+            <Footer />
+            <BackToTop />
+          </div>
+        </React.StrictMode>
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    // Render with error handling
+    try {
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    } catch (error) {
+      console.error('Error rendering React app:', error);
+      document.getElementById('error-message').style.display = 'block';
+    }
   </script>
 </body>
 </html>
