@@ -96,7 +96,10 @@
       return (
         <nav className="bg-gray-900 text-white p-4 sticky top-0 z-50 shadow-lg">
           <div className="container mx-auto flex justify-between items-center">
-            <h1 className="text-2xl md:text-3xl font-bold">Shan Popal Real Estate</h1>
+            <div className="flex items-center gap-3">
+              <img src="https://static.vecteezy.com/system/resources/thumbnails/022/750/436/small/3d-home-icon-free-png.png" alt="Shan Popal Real Estate Logo" className="w-10 h-10" />
+              <h1 className="text-2xl md:text-3xl font-bold">Shan Popal Real Estate</h1>
+            </div>
             <div className="md:hidden">
               <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none" aria-label="Toggle navigation">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,6 +130,20 @@
         "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
       ];
 
+      const handleViewListings = () => {
+        const listingsSection = document.getElementById('listings');
+        if (listingsSection) {
+          listingsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      const handleContactShan = () => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
       return (
         <section id="home" className="relative h-screen">
           {backgrounds.map((bg, index) => (
@@ -146,8 +163,8 @@
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">Discover Your Perfect Home with Shan Popal</h1>
             <p className="text-xl md:text-2xl mb-8 max-w-2xl">Expert real estate services tailored to your needs, from buying and selling to investing.</p>
             <div className="flex gap-4">
-              <a href="#listings" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full transition hover-scale text-lg" aria-label="View Listings">View Listings</a>
-              <a href="#contact" className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white font-semibold py-4 px-8 rounded-full transition hover-scale text-lg" aria-label="Contact Shan">Contact Shan</a>
+              <button onClick={handleViewListings} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full transition hover-scale text-lg" aria-label="View Listings">View Listings</button>
+              <button onClick={handleContactShan} className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white font-semibold py-4 px-8 rounded-full transition hover-scale text-lg" aria-label="Contact Shan">Contact Shan</button>
             </div>
           </div>
         </section>
@@ -189,11 +206,14 @@
         { id: 2, image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Luxury Condo", price: 1200000, description: "Stunning condo with city views and premium finishes.", location: "Downtown Core" },
         { id: 3, image: "https://images.trvl-media.com/lodging/101000000/100140000/100139000/100138970/027fcac8.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill", title: "Cozy Bungalow", price: 450000, description: "Charming 3-bedroom bungalow with a large backyard.", location: "Green Valley" },
         { id: 4, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Urban Loft", price: 850000, description: "Stylish loft with open-concept design and city access.", location: "City Center" },
+        { id: 5, image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Country Cottage", price: 600000, description: "Quaint 3-bedroom cottage with scenic views.", location: "Riverside Village" },
+        { id: 6, image: "https://images.unsplash.com/photo-1576941089067-2de3c901e126?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", title: "Executive Townhouse", price: 950000, description: "Elegant townhouse with modern design and prime location.", location: "Uptown District" },
       ];
 
       const filteredProperties = properties.filter(property => {
         const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                             property.location.toLowerCase().includes(searchTerm.toLowerCase());
+                             property.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                             property.description.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesPrice = priceFilter === "all" || 
                             (priceFilter === "low" && property.price <= 500000) ||
                             (priceFilter === "mid" && property.price > 500000 && property.price <= 900000) ||
@@ -208,10 +228,10 @@
             <div className="mb-8 flex flex-col sm:flex-row justify-center gap-4">
               <input 
                 type="text" 
-                placeholder="Search by title or location..." 
+                placeholder="Search by title, location, or description..." 
                 value={searchTerm} 
                 onChange={(e) => setSearchTerm(e.target.value)} 
-                className="p-4 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-600 w-full sm:w-64"
+                className="p-4 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-600 w-full sm:w-80"
                 aria-label="Search properties"
               />
               <select 
@@ -227,18 +247,27 @@
               </select>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProperties.map((property, index) => (
-                <div key={property.id} className="bg-gray-50 rounded-xl shadow-lg overflow-hidden hover-scale animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                  <img src={property.image} alt={property.title} className="w-full h-64 object-cover" />
-                  <div className="p-6">
-                    <h3 className="text-2xl font-semibold mb-2">{property.title}</h3>
-                    <p className="text-blue-600 font-bold mb-2">${property.price.toLocaleString()}</p>
-                    <p className="text-gray-600 mb-2">{property.description}</p>
-                    <p className="text-gray-500 text-sm">{property.location}</p>
-                    <a href="#contact" className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition" aria-label={`Inquire about ${property.title}`}>Inquire Now</a>
+              {filteredProperties.length > 0 ? (
+                filteredProperties.map((property, index) => (
+                  <div key={property.id} className="bg-gray-50 rounded-xl shadow-lg overflow-hidden hover-scale animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
+                    <img src={property.image} alt={property.title} className="w-full h-64 object-cover" />
+                    <div className="p-6">
+                      <h3 className="text-2xl font-semibold mb-2">{property.title}</h3>
+                      <p className="text-blue-600 font-bold mb-2">${property.price.toLocaleString()}</p>
+                      <p className="text-gray-600 mb-2">{property.description}</p>
+                      <p className="text-gray-500 text-sm">{property.location}</p>
+                      <button onClick={() => {
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                          contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }} className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition" aria-label={`Inquire about ${property.title}`}>Inquire Now</button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p className="text-gray-600 text-lg">No properties match your search criteria.</p>
+              )}
             </div>
           </div>
         </section>
@@ -246,15 +275,26 @@
     }
 
     function MarketTrends() {
+      const [selectedYear, setSelectedYear] = React.useState('2025');
+      const dataByYear = {
+        '2019': [300000, 310000, 305000, 315000, 320000, 325000, 330000, 335000, 340000, 345000, 350000, 355000],
+        '2020': [320000, 325000, 330000, 335000, 340000, 345000, 350000, 355000, 360000, 365000, 370000, 375000],
+        '2021': [350000, 355000, 360000, 365000, 370000, 375000, 380000, 385000, 390000, 395000, 400000, 405000],
+        '2022': [380000, 385000, 390000, 395000, 400000, 405000, 410000, 415000, 420000, 425000, 430000, 435000],
+        '2023': [400000, 405000, 410000, 415000, 420000, 425000, 430000, 435000, 440000, 445000, 450000, 455000],
+        '2024': [420000, 425000, 430000, 435000, 440000, 445000, 450000, 455000, 460000, 465000, 470000, 475000],
+        '2025': [450000, 455000, 460000, 465000, 470000, 475000, 480000, 485000, 490000, 495000, 500000, 505000],
+      };
+
       React.useEffect(() => {
         const ctx = document.getElementById('marketChart').getContext('2d');
-        new Chart(ctx, {
+        const chart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: ['2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             datasets: [{
-              label: 'Average Home Price ($)',
-              data: [300000, 320000, 350000, 380000, 400000, 420000, 450000],
+              label: `Average Home Price ($) in ${selectedYear}`,
+              data: dataByYear[selectedYear],
               borderColor: '#3b82f6',
               fill: false,
               tension: 0.4
@@ -264,19 +304,43 @@
             responsive: true,
             scales: {
               y: { beginAtZero: false, title: { display: true, text: 'Price ($)' } },
-              x: { title: { display: true, text: 'Year' } }
+              x: { title: { display: true, text: 'Month' } }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `$${context.parsed.y.toLocaleString()}`;
+                  }
+                }
+              }
             }
           }
         });
-      }, []);
+        return () => chart.destroy();
+      }, [selectedYear]);
 
       return (
         <section id="market-trends" className="py-20 bg-white">
           <div className="container mx-auto text-center px-4">
             <h2 className="text-4xl md:text-5xl font-bold mb-12 animate-fade-in">Market Trends</h2>
+            <div className="mb-8">
+              <label htmlFor="year-select" className="text-lg font-semibold mr-4">Select Year:</label>
+              <select 
+                id="year-select"
+                value={selectedYear} 
+                onChange={(e) => setSelectedYear(e.target.value)} 
+                className="p-2 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-600"
+                aria-label="Select year for market trends"
+              >
+                {Object.keys(dataByYear).map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+            </div>
             <div className="max-w-3xl mx-auto">
               <canvas id="marketChart" className="animate-fade-in"></canvas>
-              <p className="text-gray-600 mt-6">Explore the latest trends in the real estate market to make informed decisions.</p>
+              <p className="text-gray-600 mt-6">Explore the latest trends in the real estate market to make informed decisions. Select a year to view monthly average home prices.</p>
             </div>
           </div>
         </section>
@@ -409,7 +473,12 @@
               <p className="text-lg text-gray-600 mb-4">
                 From first-time buyers to seasoned investors, Shan provides personalized guidance to navigate the complexities of real estate with confidence.
               </p>
-              <a href="#contact" className="inline-block bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition hover-scale" aria-label="Connect with Shan">Connect with Shan</a>
+              <button onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }} className="inline-block bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition hover-scale" aria-label="Connect with Shan">Connect with Shan</button>
             </div>
           </div>
         </section>
@@ -477,7 +546,7 @@
                 </div>
               </div>
               <div className="md:w-1/2 animate-fade-in">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md mx-auto">
+                <div className="flex flex-col gap-4 max-w-lg mx-auto">
                   <div>
                     <input 
                       type="text" 
@@ -485,7 +554,7 @@
                       placeholder="Your Name" 
                       value={formData.name}
                       onChange={handleChange}
-                      className={`p-4 rounded-lg text-black focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-600' : 'focus:ring-blue-600'}`} 
+                      className={`p-4 rounded-lg text-black focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-600' : 'focus:ring-blue-600'} w-full`} 
                       aria-label="Your Name"
                     />
                     {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
@@ -497,7 +566,7 @@
                       placeholder="Your Email" 
                       value={formData.email}
                       onChange={handleChange}
-                      className={`p-4 rounded-lg text-black focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-600' : 'focus:ring-blue-600'}`} 
+                      className={`p-4 rounded-lg text-black focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-600' : 'focus:ring-blue-600'} w-full`} 
                       aria-label="Your Email"
                     />
                     {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
@@ -508,19 +577,20 @@
                       placeholder="Your Message" 
                       value={formData.message}
                       onChange={handleChange}
-                      className={`p-4 rounded-lg text-black h-40 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-600' : 'focus:ring-blue-600'}`} 
+                      className={`p-4 rounded-lg text-black h-48 focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-600' : 'focus:ring-blue-600'} w-full`} 
                       aria-label="Your Message"
                     ></textarea>
                     {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
                   </div>
                   <button 
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg transition hover-scale" 
+                    onClick={handleSubmit}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg transition hover-scale w-full" 
                     aria-label="Send Message"
                   >
                     Send Message
                   </button>
-                </form>
+                </div>
               </div>
             </div>
           </div>
